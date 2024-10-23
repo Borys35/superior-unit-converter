@@ -40,10 +40,15 @@ public class ConversionViewController implements Initializable {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private static String measureUnitGroup = "length";
+
     private String fromUnitName;
     private String toUnitName;
     private String fromValue;
 
+    public static void setMeasureUnitGroup(String unitGroup) {
+        measureUnitGroup = unitGroup;
+    }
 
     @FXML
     protected void onHelloButtonClick() {
@@ -61,7 +66,7 @@ public class ConversionViewController implements Initializable {
     @FXML
     protected void onConvertButtonClick() {
         try {
-            Conversion conversion = getConversionAsync(fromValue, fromUnitName, toUnitName);
+            Conversion conversion = getConversionAsync(measureUnitGroup, fromValue, fromUnitName, toUnitName);
             toText.setText(conversion.getResult());
         } catch (Exception e) {
             welcomeText.setText("ERROR!");
@@ -77,11 +82,19 @@ public class ConversionViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            fromComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                fromUnitName = newValue;
+            });
+
+            toComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                toUnitName = newValue;
+            });
+
             ArrayList<String> unitNames = getUnitNames();
             fromComboBox.getItems().addAll(unitNames);
             fromComboBox.getSelectionModel().select(0);
             toComboBox.getItems().addAll(unitNames);
-            toComboBox.getSelectionModel().select(0);
+            toComboBox.getSelectionModel().select(1);
 
             fromTextField.textProperty().addListener((observable, oldValue, newValue) -> {
                 String v = newValue.trim();
@@ -91,14 +104,7 @@ public class ConversionViewController implements Initializable {
                 }
                 fromValue = v;
             });
-
-            fromComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                fromUnitName = newValue;
-            });
-
-            toComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                toUnitName = newValue;
-            });
+            fromTextField.setText("100");
         } catch (Exception e) {
             throw new CompletionException(e);
         }
@@ -118,7 +124,7 @@ public class ConversionViewController implements Initializable {
         String apiHost = dotenv.get("API_HOST");
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://measurement-unit-converter.p.rapidapi.com/length/units"))
+                .uri(URI.create("https://measurement-unit-converter.p.rapidapi.com/" + measureUnitGroup + "/units"))
                 .header("x-rapidapi-key", apiKey)
                 .header("x-rapidapi-host", apiHost)
                 .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -141,13 +147,13 @@ public class ConversionViewController implements Initializable {
         }
     }
 
-    private Conversion getConversionAsync(String value, String from, String to) throws Exception {
+    private Conversion getConversionAsync(String unitGroup, String value, String from, String to) throws Exception {
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("API_KEY");
         String apiHost = dotenv.get("API_HOST");
 
-        String urlBlueprint = "https://measurement-unit-converter.p.rapidapi.com/length?value=%s&from=%s&to=%s";
-        String url = String.format(urlBlueprint, value, from, to);
+        String urlBlueprint = "https://measurement-unit-converter.p.rapidapi.com/%s?value=%s&from=%s&to=%s";
+        String url = String.format(urlBlueprint, unitGroup, value, from, to);
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .header("x-rapidapi-key", apiKey)
                 .header("x-rapidapi-host", apiHost)

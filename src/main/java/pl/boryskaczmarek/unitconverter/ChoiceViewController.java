@@ -40,6 +40,12 @@ public class ChoiceViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            measureComboBox.getSelectionModel()
+                    .selectedItemProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+                ConversionViewController.setMeasureUnitGroup(newValue);
+            });
+
             ArrayList<String> measurements = getMeasurements();
             measureComboBox.getItems().addAll(measurements);
             measureComboBox.getSelectionModel().select(0);

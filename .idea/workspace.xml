@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/boryskaczmarek/unitconverter/ChoiceViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/boryskaczmarek/unitconverter/ChoiceViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/boryskaczmarek/unitconverter/ConversionViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/boryskaczmarek/unitconverter/ConversionViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pl/boryskaczmarek/unitconverter/conversion-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pl/boryskaczmarek/unitconverter/conversion-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +99,7 @@
       <workItem from="1729547578447" duration="1086000" />
       <workItem from="1729608844973" duration="1608000" />
       <workItem from="1729610477087" duration="14481000" />
-      <workItem from="1729672232544" duration="6455000" />
+      <workItem from="1729672232544" duration="7898000" />
     </task>
     <servers />
   </component>
