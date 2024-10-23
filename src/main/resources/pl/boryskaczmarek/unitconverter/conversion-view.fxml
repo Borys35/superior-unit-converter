@@ -5,6 +5,10 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="pl.boryskaczmarek.unitconverter.ConversionViewController">
     <padding>
@@ -13,5 +17,20 @@
 
     <Label fx:id="welcomeText"/>
     <Button text="Hello!" onAction="#onHelloButtonClick"/>
+
+    <HBox spacing="10.0">
+        <Label text="From" />
+        <ComboBox fx:id="fromComboBox" promptText="Choose Base Unit" />
+        <TextField fx:id="fromTextField" maxWidth="60.0" />
+    </HBox>
+
+    <HBox spacing="10.0">
+        <Label text="To" />
+        <ComboBox fx:id="toComboBox" promptText="Choose Desired Unit" />
+        <Text fx:id="toText" />
+    </HBox>
+
+    <Button text="Convert" onAction="#onConvertButtonClick" />
+
     <Button text="Back" onAction="#onBackButtonClick" />
 </VBox>

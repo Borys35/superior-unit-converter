@@ -42,6 +42,7 @@ public class ChoiceViewController implements Initializable {
         try {
             ArrayList<String> measurements = getMeasurements();
             measureComboBox.getItems().addAll(measurements);
+            measureComboBox.getSelectionModel().select(0);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
