@@ -15,8 +15,7 @@
         <Insets bottom="30.0" left="20.0" right="20.0" top="30.0"/>
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Text text="Superior Unit Converter" />
 
     <HBox spacing="10.0">
         <Label text="From" />
@@ -30,7 +29,7 @@
         <Text fx:id="toText" />
     </HBox>
 
-    <Button text="Convert" onAction="#onConvertButtonClick" />
+    <Button fx:id="convertButton" text="Convert" onAction="#onConvertButtonClick" />
 
     <Button text="Back" onAction="#onBackButtonClick" />
 </VBox>

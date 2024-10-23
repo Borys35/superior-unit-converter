@@ -2,11 +2,13 @@ package pl.boryskaczmarek.unitconverter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -28,8 +30,6 @@ import pl.boryskaczmarek.unitconverter.utils.SceneRootSwitcher;
 // https://rapidapi.com/foxello-foxello-default/api/measurement-unit-converter/playground/endpoint_1f9d51b9-3230-4468-85df-2c736f5c48f3
 public class ConversionViewController implements Initializable {
     @FXML
-    private Label welcomeText;
-    @FXML
     private ComboBox<String> fromComboBox;
     @FXML
     private TextField fromTextField;
@@ -37,6 +37,8 @@ public class ConversionViewController implements Initializable {
     private ComboBox<String> toComboBox;
     @FXML
     private Text toText;
+    @FXML
+    private Button convertButton;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -51,25 +53,22 @@ public class ConversionViewController implements Initializable {
     }
 
     @FXML
-    protected void onHelloButtonClick() {
-//        try {
-//            Conversion conversion = getConversionAsync();
-//
-//            System.out.println("CONVERSION RESULT: " + conversion.getResult());
-//            welcomeText.setText("Result is " + conversion.getResult());
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            welcomeText.setText("ERROR!");
-//        }
-    }
-
-    @FXML
     protected void onConvertButtonClick() {
         try {
+            new Thread(() -> {
+                Platform.runLater(() -> convertButton.setDisable(true));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                Platform.runLater(() -> convertButton.setDisable(false));
+            }).start();
+
             Conversion conversion = getConversionAsync(measureUnitGroup, fromValue, fromUnitName, toUnitName);
             toText.setText(conversion.getResult());
         } catch (Exception e) {
-            welcomeText.setText("ERROR!");
+            toText.setText("ERR!");
             throw new RuntimeException(e);
         }
     }
