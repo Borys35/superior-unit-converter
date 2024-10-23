@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import pl.boryskaczmarek.unitconverter.models.Conversion;
+import pl.boryskaczmarek.unitconverter.utils.SceneRootSwitcher;
 
 import java.io.IOException;
 import java.net.URI;
@@ -32,16 +33,8 @@ public class ChoiceViewController implements Initializable {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @FXML
-    protected void onNextButtonClick(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("conversion-view.fxml"));
-
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.out.println("Error in loading fxml");
-            throw new RuntimeException(e);
-        }
+    protected void onNextButtonClick(ActionEvent event) throws IOException {
+        SceneRootSwitcher.switchSceneFromEvent(event, "conversion-view.fxml");
     }
 
     @Override

@@ -16,6 +16,7 @@ import java.net.*;
 import java.util.concurrent.CompletionException;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import pl.boryskaczmarek.unitconverter.utils.SceneRootSwitcher;
 
 // When button click is triggered, API call is sent.
 // Here is a playground to try out the API.
@@ -40,16 +41,8 @@ public class ConversionViewController {
     }
 
     @FXML
-    protected void onBackButtonClick(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("choice-view.fxml"));
-
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(fxmlLoader.load());
-        } catch (IOException e) {
-            System.out.println("Error in loading fxml");
-            throw new RuntimeException(e);
-        }
+    protected void onBackButtonClick(ActionEvent event) throws IOException {
+        SceneRootSwitcher.switchSceneFromEvent(event, "choice-view.fxml");
     }
 
     private Conversion readConversionValue(String body) {
