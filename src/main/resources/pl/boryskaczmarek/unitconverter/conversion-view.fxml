@@ -15,7 +15,7 @@
         <Insets bottom="30.0" left="20.0" right="20.0" top="30.0"/>
     </padding>
 
-    <Text text="Superior Unit Converter" />
+    <Text styleClass="heading" text="Superior Unit Converter" />
 
     <HBox spacing="10.0">
         <Label text="From" />

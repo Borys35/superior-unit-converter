@@ -7,11 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("choice-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("choice-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 300, 485);
+        scene.getStylesheets().add(MainApplication.class.getResource("style.css").toExternalForm());
         stage.setTitle("Superior Unit Converter");
         stage.setResizable(false);
         stage.setScene(scene);
